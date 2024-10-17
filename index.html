@@ -17,8 +17,8 @@
 
 
   <main>
-    <section>
-      <div class="container-FormInput shape">
+    <section class="container-form">
+      <div class=" shape">
         <header>
           <h1>Bookshelf Apps</h1>
           <p>Add your book to the list</p>
@@ -63,8 +63,8 @@
       </div>
     </section>
 
-    <section>
-      <div class="shape wrapper">
+    <section class="container-search">
+      <div class=" shape wrapper">
         <h2>Search Books</h2>
         <form id="searchBook" data-testid="searchBookForm">
           <!-- <label for="searchBookTitle">Judul</label> -->
@@ -80,21 +80,22 @@
           <button id="clearSearchButton" style="display: none;">Clear Search</button>
         </form>
       </div>
-    </section>
-    
-    <section>
-      <div id="searchResults" class="shape wrapper">
+
+      <div id="searchResults" class="container-searchResults shape wrapper">
         <div class="empty-searchContent" id="emptySearchContent">
           <img src="assets/Books.png" alt="Reading books with glasses and coffee" id="reading-books">
           <p>"The more that you read, the more things you will know, the more that you learn, the more places you'll go."</p>
           <br>
           <h6>Dr. Seuss <span> <br>American author and cartoonist</span></h6>
         </div>
-    </div>
-  </section>
+      </div>
+    </section>
+    
+    <!-- <section class="">
+  </section> -->
   
-    <section>
-      <div class="wrapper shape">
+    <section class="container-unfinished">
+      <div class=" wrapper shape">
         <h2>Books to Read</h2>
         <span id="readEmptyContent">There is no list of books that you are currently reading.</span>
         <div id="incompleteBookList" data-testid="incompleteBookList" class="card">
@@ -103,7 +104,7 @@
                 Ini adalah struktur HTML untuk masing-masing buku.
                 Pastikan susunan elemen beserta atribut data-testid menyesuaikan seperti contoh ini.
               -->
-            <div data-bookid="123123123" data-testid="bookItem" class="card-content">
+            <!-- <div data-bookid="123123123" data-testid="bookItem" class="card-content">
               <div class="card-image">
                 <img src="" alt="">
               </div>
@@ -117,14 +118,14 @@
                 <button data-testid="bookItemDeleteButton">Hapus Buku</button>
                 <button data-testid="bookItemEditButton">Edit Buku</button>
               </div>
-            </div>
+            </div> -->
         </div>
       </section>
       </div>
 
 
-    <section>
-      <div class="wrapper shape">
+    <section class="container-finished">
+      <div class=" wrapper shape">
         <h2>Completed Books</h2>
         <span id="finishEmptyContent">There are no books you have finished reading.</span>
 
@@ -133,7 +134,7 @@
               Ini adalah struktur HTML untuk masing-masing buku.
               Pastikan susunan elemen beserta atribut data-testid menyesuaikan seperti contoh ini.
             -->
-          <div data-bookid="456456456" data-testid="bookItem">
+          <!-- <div data-bookid="456456456" data-testid="bookItem">
             <h3 data-testid="bookItemTitle">Judul Buku 2</h3>
             <p data-testid="bookItemAuthor">Penulis: Penulis Buku 2</p>
             <p data-testid="bookItemYear">Tahun: 2030</p>
@@ -142,7 +143,7 @@
               <button data-testid="bookItemDeleteButton">Hapus Buku</button>
               <button data-testid="bookItemEditButton">Edit Buku</button>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </section>
@@ -185,6 +186,10 @@
         </div>
       </div>
     </section>
+
+    <footer class="footer-container shape">
+    <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h5>
+    </footer>
 
     
 
