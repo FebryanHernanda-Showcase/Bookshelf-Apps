@@ -1,5 +1,4 @@
-let buku = [];
-
+/* Local data storage */
 const saveDataLocalStorage = () => {
   localStorage.setItem("bookData", JSON.stringify(buku));
 };
@@ -12,6 +11,8 @@ const loadDataLocalStorage = () => {
     showBukuNotComplete();
   }
 };
+
+/* DOM Content Loaded */
 
 document.addEventListener("DOMContentLoaded", (e) => {
   e.preventDefault();
@@ -51,34 +52,25 @@ document.addEventListener("DOMContentLoaded", (e) => {
   const clearSearchButton = document.getElementById("clearSearchButton");
   clearSearchButton.addEventListener("click", (e) => {
     e.preventDefault();
-    const searchForm = document.getElementById("searchBook");
-
-    if (!searchForm.checkValidity()) {
-      searchForm.reportValidity();
-      return;
-    }
     clearUISearchResult();
+    const searchForm = document.getElementById("searchBook");
     searchForm.reset();
   });
 });
+
+/* Generate Booklist */
+let buku = [];
 
 const generateId = () => {
   return +new Date();
 };
 
-const bookItem = (
-  idBuku,
-  judulBuku,
-  penulisBuku,
-  tahunBuku,
-  image,
-  isComplete
-) => {
+const bookItem = (id, title, author, year, image, isComplete) => {
   return {
-    idBuku,
-    judulBuku,
-    penulisBuku,
-    tahunBuku,
+    id,
+    title,
+    author,
+    year,
     image,
     isComplete,
   };
@@ -88,14 +80,14 @@ const getInputForm = () => {
   const defautImage =
     "https://cdn.pixabay.com/photo/2024/06/16/15/23/book-8833643_640.jpg";
 
-  const judul = document.getElementById("bookFormTitle").value;
-  const penulis = document.getElementById("bookFormAuthor").value;
-  const tahun = document.getElementById("bookFormYear").value;
+  const title = document.getElementById("bookFormTitle").value;
+  const author = document.getElementById("bookFormAuthor").value;
+  const year = document.getElementById("bookFormYear").value;
   const image = document.getElementById("bookFormImage").value || defautImage;
   const isComplete = document.getElementById("bookFormIsComplete").checked;
 
-  const idBuku = generateId();
-  const item = bookItem(idBuku, judul, penulis, tahun, image, isComplete);
+  const booksId = generateId();
+  const item = bookItem(booksId, title, author, year, image, isComplete);
 
   buku.push(item);
   saveDataLocalStorage();
@@ -103,24 +95,26 @@ const getInputForm = () => {
   showBukuComplete();
 };
 
+/* Search Book Function */
+
 const searchBook = () => {
   const searchInput = document
     .getElementById("searchBookTitle")
     .value.toLowerCase();
 
-  const searchResult = buku.filter((item) =>
-    item.judulBuku.toLowerCase().includes(searchInput)
+  const searchBook = buku.filter((item) =>
+    item.title.toLowerCase().includes(searchInput)
   );
 
-  return searchResult;
+  return searchBook;
 };
 
 const resultBook = () => {
-  const uiShow = document.getElementById("searchResults");
-
+  const showResults = document.getElementById("searchResults");
   const result = searchBook();
+
   if (!result.length) {
-    alert("Buku tidak ditemukan !");
+    alert("book not found");
     return;
   }
 
@@ -129,7 +123,7 @@ const resultBook = () => {
     cards += resultUIBook(item);
   });
 
-  uiShow.innerHTML = cards;
+  showResults.innerHTML = cards;
 
   if (result.length > 0) {
     const clearButton = document.getElementById("clearSearchButton");
@@ -139,17 +133,24 @@ const resultBook = () => {
 
 const clearUISearchResult = () => {
   const uiShow = document.getElementById("searchResults");
-  uiShow.innerHTML = `
-        <div class="empty-searchContent" id="emptySearchContent">
-          <img src="assets/Books.png" alt="Reading books with glasses and coffee" id="reading-books">
-          <p>"The more that you read, the more things you will know, the more that you learn, the more places you'll go."</p>
-          <br>
-          <p>Dr. Seuss <span> <br>American author and cartoonist</span></p>
-        </div>
-        `;
+  uiShow.innerHTML = emptySearchContent();
+
+  const searchForm = document.getElementById("searchBook");
+  searchForm.reset();
 
   const clearButton = document.getElementById("clearSearchButton");
   clearButton.style.display = "none";
+};
+
+const emptySearchContent = () => {
+  return `
+   <div class="empty-searchContent" id="emptySearchContent">
+          <img src="assets/Books.png" alt="Reading books with glasses and coffee" id="reading-books">
+          <p>"The more that you read, the more things you will know, the more that you learn, the more places you'll go."</p>
+          <br>
+          <h6>Dr. Seuss <span id="titleQuotes"> <br>American author and cartoonist</span></h6>
+    </div>
+  `;
 };
 
 const resultUIBook = (data) => {
@@ -157,41 +158,37 @@ const resultUIBook = (data) => {
   let statusBook = status ? "Finished" : "Unfinished";
   let bookId = status ? "buttonFinished" : "";
 
-  const colorStatus = document.getElementById("statusBook");
-
-  // const searchInput = document
-  //   .getElementById("searchBookTitle")
-  //   .value.toLowerCase();
-
   return `
-  <div class="card-content">
+  <div data-bookid="${data.id}" data-testid="bookItem"  class="card-content">
         <div class="card-image">
-              <img src="${data.image}" alt="">
+              <img src="${data.image}" alt="Book Cover Images">
         </div>
         <div class="card-item">
-          <h3 data-testid="bookItemTitle">${data.judulBuku}</h3>
-           <p data-testid="bookItemAuthor">${data.penulisBuku}</p>
-           <p data-testid="bookItemYear">${data.tahunBuku}</p>
+          <h3 data-testid="bookItemTitle">${data.title}</h3>
+           <p data-testid="bookItemAuthor">${data.author}</p>
+           <p data-testid="bookItemYear">${data.year}</p>
            <button id="${bookId}">${statusBook}</button>
         </div>
         <div class="card-button">
-           <button data-testid="bookItemEditButton" onClick="showEditBook(${data.idBuku})"><i class="fa-solid fa-pen-to-square fa-xl"></i></button>
-           <button data-testid="bookItemDeleteButton" onClick="deleteBook(${data.idBuku})"><i class="fa-solid fa-trash fa-xl"></i></button>
+           <button data-testid="bookItemEditButton" onClick="showEditBook(${data.id})"><i class="fa-solid fa-pen-to-square fa-lg "></i></button>
+           <button data-testid="bookItemDeleteButton" onClick="deleteBook(${data.id})"><i class="fa-solid fa-trash fa-lg"></i></button>
       </div>
    </div>
 
   `;
 };
 
-const showEditBook = (idBuku) => {
-  const bookToEdit = buku.find((book) => book.idBuku === idBuku);
+/* Edit Book Function */
+
+const showEditBook = (id) => {
+  const bookToEdit = buku.find((book) => book.id === id);
 
   const editForm = document.getElementById("containerEditForm");
   editForm.style.display = "block";
 
-  document.getElementById("editTitle").value = bookToEdit.judulBuku;
-  document.getElementById("editBookFormAuthor").value = bookToEdit.penulisBuku;
-  document.getElementById("editBookFormYear").value = bookToEdit.tahunBuku;
+  document.getElementById("editTitle").value = bookToEdit.title;
+  document.getElementById("editBookFormAuthor").value = bookToEdit.author;
+  document.getElementById("editBookFormYear").value = bookToEdit.year;
   document.getElementById("newBookFormImage").value = bookToEdit.image;
 
   const editSubmitButton = document.getElementById("EditBookFormButton");
@@ -201,18 +198,23 @@ const showEditBook = (idBuku) => {
 
   newButton.addEventListener("click", (e) => {
     e.preventDefault();
-    editBook(idBuku);
+    editBook(id);
+
+    clearUISearchResult();
+
+    document.getElementById("modal").style.display = "none";
   });
   document.getElementById("editBookForm").style.display = "block";
+  document.getElementById("modal").style.display = "block";
 };
 
-const editBook = (idBuku) => {
+const editBook = (id) => {
   const defautImage =
     "https://cdn.pixabay.com/photo/2024/06/16/15/23/book-8833643_640.jpg";
 
-  const newJudulBuku = document.getElementById("editTitle").value;
-  const newPenulisBuku = document.getElementById("editBookFormAuthor").value;
-  const newTahunBuku = document.getElementById("editBookFormYear").value;
+  const newTitle = document.getElementById("editTitle").value;
+  const newAuthor = document.getElementById("editBookFormAuthor").value;
+  const newYear = document.getElementById("editBookFormYear").value;
   const newImage =
     document.getElementById("newBookFormImage").value || defautImage;
   const newIsComplete = document.getElementById(
@@ -220,12 +222,12 @@ const editBook = (idBuku) => {
   ).checked;
 
   buku = buku.map((obj) => {
-    if (obj.idBuku === idBuku) {
+    if (obj.id === id) {
       return {
-        idBuku: obj.idBuku,
-        judulBuku: newJudulBuku,
-        penulisBuku: newPenulisBuku,
-        tahunBuku: newTahunBuku,
+        id: obj.id,
+        title: newTitle,
+        author: newAuthor,
+        year: newYear,
         image: newImage,
         isComplete: newIsComplete,
       };
@@ -239,7 +241,6 @@ const editBook = (idBuku) => {
 
   const editForm = document.getElementById("containerEditForm");
   editForm.style.display = "none";
-  // editForm.reset();
 };
 
 const cancelEditBook = () => {
@@ -248,12 +249,21 @@ const cancelEditBook = () => {
   editForm.reset();
 };
 
-const deleteBook = (idBuku) => {
-  buku = buku.filter((item) => item.idBuku !== idBuku);
-  saveDataLocalStorage();
-  showBukuNotComplete();
-  showBukuComplete();
+/* Delete Book Function */
+
+const deleteBook = (id) => {
+  const isDelete = confirm("are you sure want to delete this book?");
+
+  if (isDelete) {
+    buku = buku.filter((item) => item.id !== id);
+    clearUISearchResult();
+    saveDataLocalStorage();
+    showBukuNotComplete();
+    showBukuComplete();
+  }
 };
+
+/* Read Book Function */
 
 const finishRead = (index) => {
   buku[index].isComplete = true;
@@ -291,20 +301,20 @@ const showUINotComplete = (data, index) => {
   let statusBook = status ? "Finished" : "Unfinished";
 
   return `
-         <div data-bookid="456456456" data-testid="bookItem" class="card-content">
+         <div data-bookid="${data.id}" data-testid="bookItem" class="card-content">
           <div class="card-image">
-                <img src="${data.image}" alt="">
+                <img src="${data.image}" alt="Book Cover Images">
           </div>
           <div class="card-item">
-             <h3 data-testid="bookItemTitle">${data.judulBuku}</h3>
-             <p data-testid="bookItemAuthor">${data.penulisBuku}</p>
-             <p data-testid="bookItemYear">${data.tahunBuku}</p>
+             <h3 data-testid="bookItemTitle">${data.title}</h3>
+             <p data-testid="bookItemAuthor">${data.author}</p>
+             <p data-testid="bookItemYear">${data.year}</p>
              <button>${statusBook}</button>
           </div>
              <div class="card-button">
-                 <button data-testid="bookItemIsCompleteButton" onClick="finishRead(${index})"><i class="fa-solid fa-check-to-slot fa-xl"></i></button>
-                 <button data-testid="bookItemDeleteButton" onClick="deleteBook(${data.idBuku})"><i class="fa-solid fa-trash fa-xl"></i></button>
-                 <button data-testid="bookItemEditButton" onClick="showEditBook(${data.idBuku})"><i class="fa-solid fa-pen-to-square fa-xl"></i></button>
+                 <button data-testid="bookItemIsCompleteButton" onClick="finishRead(${index})"><i class="fa-solid fa-check-to-slot fa-lg"></i></button>
+                 <button data-testid="bookItemDeleteButton" onClick="deleteBook(${data.id})"><i class="fa-solid fa-trash fa-lg"></i></button>
+                 <button data-testid="bookItemEditButton" onClick="showEditBook(${data.id})"><i class="fa-solid fa-pen-to-square fa-lg"></i></button>
              </div>
          </div>
      `;
@@ -332,20 +342,20 @@ const showUIComplete = (data, index) => {
   let statusBook = status ? "Finished" : "Unfinished";
 
   return `
-        <div data-bookid="456456456" data-testid="bookItem" class="card-content">
+        <div data-bookid="${data.id}" data-testid="bookItem" class="card-content">
           <div class="card-image">
-                <img src="${data.image}" alt="">
+                <img src="${data.image}" alt="Book Cover Images">
           </div>
           <div class="card-item">
-             <h3 data-testid="bookItemTitle">${data.judulBuku}</h3>
-             <p data-testid="bookItemAuthor">${data.penulisBuku}</p>
-             <p data-testid="bookItemYear">${data.tahunBuku}</p>
+             <h3 data-testid="bookItemTitle">${data.title}</h3>
+             <p data-testid="bookItemAuthor">${data.author}</p>
+             <p data-testid="bookItemYear">${data.year}</p>
              <button id="buttonFinished">${statusBook}</button>
           </div>
              <div class="card-button">
-                 <button data-testid="bookItemIsCompleteButton" onClick="undoRead(${index})"><i class="fa-solid fa-rotate-left fa-xl"></i></button>
-                 <button data-testid="bookItemDeleteButton" onClick="deleteBook(${data.idBuku})"><i class="fa-solid fa-trash fa-xl"></i></button>
-                 <button data-testid="bookItemEditButton" onClick="showEditBook(${data.idBuku})"><i class="fa-solid fa-pen-to-square fa-xl"></i></button>
+                 <button data-testid="bookItemIsCompleteButton" onClick="undoRead(${index})"><i class="fa-solid fa-rotate-left fa-lg"></i></button>
+                 <button data-testid="bookItemDeleteButton" onClick="deleteBook(${data.id})"><i class="fa-solid fa-trash fa-lg"></i></button>
+                 <button data-testid="bookItemEditButton" onClick="showEditBook(${data.id})"><i class="fa-solid fa-pen-to-square fa-lg"></i></button>
              </div>
          </div>
       `;

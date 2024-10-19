@@ -4,12 +4,19 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+  name="description"
+  content="Organize your entire library with our easy-to-use bookshelf app. 
+           Add, categorize, and track your books, all in one place. 
+           Discover new reads, manage your wish list, and never forget a book again.">
+           
   <title>Bookshelf App</title>
   <link rel="stylesheet" type="text/css" href="styles.css" />
 
   <!-- Impor script kamu di sini -->
   <!-- Lampirkan `defer` jika pemanggilan dilakukan dalam <head> -->
-    <script src="https://kit.fontawesome.com/21b38282b1.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/21b38282b1.js" crossorigin="anonymous"></script>
+  <script defer src="main.js"></script>
 </head>
 
 <body>
@@ -18,7 +25,7 @@
 
   <main>
     <section class="container-form">
-      <div class=" shape">
+      <div class="shape">
         <header>
           <h1>Bookshelf Apps</h1>
           <p>Add your book to the list</p>
@@ -30,22 +37,25 @@
             <div class="left">
               <div>
                 <label for="bookFormTitle">Book Title</label>
-                <input id="bookFormTitle" type="text" data-testid="bookFormTitleInput" required />
+                <input id="bookFormTitle" type="text" data-testid="bookFormTitleInput" placeholder="Your book title"
+                  required />
               </div>
               <div>
                 <label for="bookFormAuthor">Author</label>
-                <input id="bookFormAuthor" type="text"  data-testid="bookFormAuthorInput" required/>
+                <input id="bookFormAuthor" type="text" data-testid="bookFormAuthorInput" placeholder="Book author"
+                  required />
               </div>
             </div>
 
             <div class="right">
               <div>
                 <label for="bookFormYear">Year</label>
-                <input id="bookFormYear" type="number" data-testid="bookFormYearInput" required />
+                <input id="bookFormYear" type="number" data-testid="bookFormYearInput" placeholder="Year of book" />
               </div>
               <div>
                 <label for="bookFormImage">Book Cover Links</label>
-                <input id="bookFormImage" type="text" data-testid="bookFormImageInput" />
+                <input id="bookFormImage" type="text" data-testid="bookFormImageInput"
+                  placeholder="ex: https://cdn.pixabay.com/photo/2024/06/16/15/23/book-8833643_640.jpg" />
               </div>
             </div>
 
@@ -67,16 +77,13 @@
       <div class=" shape wrapper">
         <h2>Search Books</h2>
         <form id="searchBook" data-testid="searchBookForm">
-          <!-- <label for="searchBookTitle">Judul</label> -->
-           <div class="search-container">
-             <input id="searchBookTitle" type="search" data-testid="searchBookFormTitleInput"  placeholder="Search your books" required />
-             <button id="searchSubmit" type="submit" data-testid="searchBookFormSubmitButton">
+          <div class="search-container">
+            <input id="searchBookTitle" type="search" data-testid="searchBookFormTitleInput"
+              placeholder="Search your books" required />
+            <button id="searchSubmit" type="submit" data-testid="searchBookFormSubmitButton">
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>
-           </div>
-          <!-- <button id="searchSubmit" type="submit" data-testid="searchBookFormSubmitButton">
-            Cari
-          </button> -->
+          </div>
           <button id="clearSearchButton" style="display: none;">Clear Search</button>
         </form>
       </div>
@@ -84,44 +91,28 @@
       <div id="searchResults" class="container-searchResults shape wrapper">
         <div class="empty-searchContent" id="emptySearchContent">
           <img src="assets/Books.png" alt="Reading books with glasses and coffee" id="reading-books">
-          <p>"The more that you read, the more things you will know, the more that you learn, the more places you'll go."</p>
+          <p>"The more that you read, the more things you will know, the more that you learn, the more places you'll
+            go."</p>
           <br>
-          <h6>Dr. Seuss <span> <br>American author and cartoonist</span></h6>
+          <h6>Dr. Seuss <span id="titleQuotes"> <br>American author and cartoonist</span></h6>
         </div>
       </div>
     </section>
-    
-    <!-- <section class="">
-  </section> -->
-  
+
     <section class="container-unfinished">
       <div class=" wrapper shape">
         <h2>Books to Read</h2>
         <span id="readEmptyContent">There is no list of books that you are currently reading.</span>
         <div id="incompleteBookList" data-testid="incompleteBookList" class="card">
-          
-            <!-- 
+
+          <!-- 
                 Ini adalah struktur HTML untuk masing-masing buku.
                 Pastikan susunan elemen beserta atribut data-testid menyesuaikan seperti contoh ini.
               -->
-            <!-- <div data-bookid="123123123" data-testid="bookItem" class="card-content">
-              <div class="card-image">
-                <img src="" alt="">
-              </div>
-              <div class="card-item">
-                <h3 data-testid="bookItemTitle">Judul Buku 1</h3>
-                <p data-testid="bookItemAuthor">Penulis: Penulis Buku 1</p>
-                <p data-testid="bookItemYear">Tahun: 2030</p>
-              </div>
-              <div class="card-button">
-                <button data-testid="bookItemIsCompleteButton">Selesai dibaca</button>
-                <button data-testid="bookItemDeleteButton">Hapus Buku</button>
-                <button data-testid="bookItemEditButton">Edit Buku</button>
-              </div>
-            </div> -->
+
         </div>
-      </section>
-      </div>
+    </section>
+    </div>
 
 
     <section class="container-finished">
@@ -134,67 +125,55 @@
               Ini adalah struktur HTML untuk masing-masing buku.
               Pastikan susunan elemen beserta atribut data-testid menyesuaikan seperti contoh ini.
             -->
-          <!-- <div data-bookid="456456456" data-testid="bookItem">
-            <h3 data-testid="bookItemTitle">Judul Buku 2</h3>
-            <p data-testid="bookItemAuthor">Penulis: Penulis Buku 2</p>
-            <p data-testid="bookItemYear">Tahun: 2030</p>
-            <div>
-              <button data-testid="bookItemIsCompleteButton">Selesai dibaca</button>
-              <button data-testid="bookItemDeleteButton">Hapus Buku</button>
-              <button data-testid="bookItemEditButton">Edit Buku</button>
-            </div>
-          </div> -->
+
         </div>
       </div>
     </section>
 
 
-    
+
     <section>
-      <div class="container-editForm shape" id="containerEditForm">
-        <h2>Edit Buku</h2>
-        <div>
+      <div class="modal-content" id="modal">
+        <div class="container-editForm shape" id="containerEditForm">
+          <h2 class="editformText">Update Book Details</h2>
           <form id="editBookForm" style="display: none;">
             <div>
-              <label for="editTitle">Book Title</label>
+              <label for="editTitle" class="editformText">Book Title</label>
               <input id="editTitle" type="text" required />
             </div>
             <div>
-              <label for="editBookFormAuthor">Author</label>
+              <label for="editBookFormAuthor" class="editformText">Author</label>
               <input id="editBookFormAuthor" type="text" required />
             </div>
             <div>
-              <label for="editBookFormYear">Year</label>
+              <label for="editBookFormYear" class="editformText">Year</label>
               <input id="editBookFormYear" type="number" required />
             </div>
             <div>
-              <label for="bookFormImage">Have you finished reading it?</label>
+              <label for="bookFormImage" class="editformText">Book Cover Links</label>
               <input id="newBookFormImage" type="text" required data-testid="bookFormImageInput" />
             </div>
             <div class="form-button">
               <div class="checkbox">
-                <label for=editBookFormIsComplete">Selesai dibaca</label>
+                <label for="editBookFormIsComplete" class="editformText">Have you finished reading it?</label>
                 <input id="editBookFormIsComplete" type="checkbox" checked />
               </div>
-                <button id="EditBookFormButton" type="submit">
-                  Edit Buku
-                </button>
-                <button id="cancelEditBookFormButton">Kembali</button>
+              <button id="EditBookFormButton" type="submit">
+                Save
+              </button>
+              <button id="cancelEditBookFormButton">Cancel</button>
             </div>
-
           </form>
         </div>
       </div>
     </section>
 
     <footer class="footer-container shape">
-    <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h5>
+      <p>© 2024 Febryan Hernanda Mashudi. All rights reserved.</p>
     </footer>
 
-    
-
   </main>
-  <script defer src="main.js"></script>
+
 </body>
 
 </html>
