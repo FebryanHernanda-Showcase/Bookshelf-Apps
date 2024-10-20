@@ -6,7 +6,7 @@ Welcome to the Bookshelf App, a simple yet powerful tool to help you organize an
 ### Book Organization:  
 Easily categorize books as 'read' or 'unread' and monitor your progress.
 ### Add and Edit Books: 
-Quickly add new books to your collection or edit existing details such as title, author, book cover and reading status.
+Quickly add new books to your collection or edit existing details such as title, author, book cover, and reading status.
 ### User-Friendly Interface: 
 Designed with simplicity and ease-of-use in mind, ensuring a smooth experience while managing your personal library.
 
@@ -18,7 +18,7 @@ This design is inspired by the shape of the iOS 18 Control Centre, incorporating
 
 ## 🛠️ How to Use
 ### Add a New Book: 
-Use the form to add a new book to your list with details like title, author, and year.
+Use the form to add a new book to your list with details like title, author, book cover, and year.
 ### Edit Book Information:
 Click on any book in your collection to edit its details or update its status.
 ### Track Your Progress: 
