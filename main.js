@@ -7,6 +7,11 @@ const loadDataLocalStorage = () => {
   const dataSaved = localStorage.getItem("bookData");
   if (dataSaved) {
     buku = JSON.parse(dataSaved);
+
+    buku.forEach((item) => {
+      item.year = Number(item.year);
+    });
+
     showBukuComplete();
     showBukuNotComplete();
   }
@@ -82,9 +87,11 @@ const getInputForm = () => {
 
   const title = document.getElementById("bookFormTitle").value;
   const author = document.getElementById("bookFormAuthor").value;
-  const year = document.getElementById("bookFormYear").value;
+  const year = Number(document.getElementById("bookFormYear").value);
   const image = document.getElementById("bookFormImage").value || defautImage;
   const isComplete = document.getElementById("bookFormIsComplete").checked;
+
+  console.log(`${title}, ${author}, ${year}, ${image}, ${isComplete}`);
 
   const booksId = generateId();
   const item = bookItem(booksId, title, author, year, image, isComplete);
@@ -167,11 +174,11 @@ const resultUIBook = (data) => {
           <h3 data-testid="bookItemTitle">${data.title}</h3>
            <p data-testid="bookItemAuthor">${data.author}</p>
            <p data-testid="bookItemYear">${data.year}</p>
-           <button id="${bookId}">${statusBook}</button>
+           <button id="${bookId}" aria-label="${statusBook}">${statusBook}</button>
         </div>
         <div class="card-button">
-           <button data-testid="bookItemEditButton" onClick="showEditBook(${data.id})"><i class="fa-solid fa-pen-to-square fa-lg "></i></button>
-           <button data-testid="bookItemDeleteButton" onClick="deleteBook(${data.id})"><i class="fa-solid fa-trash fa-lg"></i></button>
+           <button data-testid="bookItemEditButton" onClick="showEditBook(${data.id})" aria-label="Edit book"><i class="fa-solid fa-pen-to-square fa-lg "></i></button>
+           <button data-testid="bookItemDeleteButton" onClick="deleteBook(${data.id})" aria-label="Delete book"><i class="fa-solid fa-trash fa-lg"></i></button>
       </div>
    </div>
 
@@ -309,12 +316,12 @@ const showUINotComplete = (data, index) => {
              <h3 data-testid="bookItemTitle">${data.title}</h3>
              <p data-testid="bookItemAuthor">${data.author}</p>
              <p data-testid="bookItemYear">${data.year}</p>
-             <button>${statusBook}</button>
+             <button aria-label="${statusBook}">${statusBook}</button>
           </div>
              <div class="card-button">
-                 <button data-testid="bookItemIsCompleteButton" onClick="finishRead(${index})"><i class="fa-solid fa-check-to-slot fa-lg"></i></button>
-                 <button data-testid="bookItemDeleteButton" onClick="deleteBook(${data.id})"><i class="fa-solid fa-trash fa-lg"></i></button>
-                 <button data-testid="bookItemEditButton" onClick="showEditBook(${data.id})"><i class="fa-solid fa-pen-to-square fa-lg"></i></button>
+                 <button data-testid="bookItemIsCompleteButton" onClick="finishRead(${index})" aria-label="Mark as finished"><i class="fa-solid fa-check-to-slot fa-lg"></i></button>
+                 <button data-testid="bookItemDeleteButton" onClick="deleteBook(${data.id})" aria-label="Delete book"><i class="fa-solid fa-trash fa-lg"></i></button>
+                 <button data-testid="bookItemEditButton" onClick="showEditBook(${data.id})" aria-label="Edit book"><i class="fa-solid fa-pen-to-square fa-lg"></i></button>
              </div>
          </div>
      `;
@@ -350,12 +357,12 @@ const showUIComplete = (data, index) => {
              <h3 data-testid="bookItemTitle">${data.title}</h3>
              <p data-testid="bookItemAuthor">${data.author}</p>
              <p data-testid="bookItemYear">${data.year}</p>
-             <button id="buttonFinished">${statusBook}</button>
+             <button id="buttonFinished" aria-label="${statusBook}">${statusBook}</button>
           </div>
              <div class="card-button">
-                 <button data-testid="bookItemIsCompleteButton" onClick="undoRead(${index})"><i class="fa-solid fa-rotate-left fa-lg"></i></button>
-                 <button data-testid="bookItemDeleteButton" onClick="deleteBook(${data.id})"><i class="fa-solid fa-trash fa-lg"></i></button>
-                 <button data-testid="bookItemEditButton" onClick="showEditBook(${data.id})"><i class="fa-solid fa-pen-to-square fa-lg"></i></button>
+                 <button data-testid="bookItemIsCompleteButton" onClick="undoRead(${index})" aria-label="Mark as unfinished"><i class="fa-solid fa-rotate-left fa-lg" aria-hidden="true"></i></button>
+                 <button data-testid="bookItemDeleteButton" onClick="deleteBook(${data.id})" aria-label="Delete book"><i class="fa-solid fa-trash fa-lg" aria-hidden="true"></i></button>
+                 <button data-testid="bookItemEditButton" onClick="showEditBook(${data.id})" aria-label="Edit book"><i class="fa-solid fa-pen-to-square fa-lg" aria-hidden="true"></i></button>
              </div>
          </div>
       `;

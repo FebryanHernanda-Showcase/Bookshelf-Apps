@@ -64,7 +64,7 @@
                 <input id="bookFormIsComplete" type="checkbox" data-testid="bookFormIsCompleteCheckbox" />
                 <label for="bookFormIsComplete">Have you finished reading it?</label>
               </div>
-              <button id="bookFormSubmit" type="submit" data-testid="bookFormSubmitButton">
+              <button id="bookFormSubmit" type="submit" data-testid="bookFormSubmitButton" aria-label="Submit book data">
                 Submit
               </button>
             </div>
@@ -80,8 +80,9 @@
           <div class="search-container">
             <input id="searchBookTitle" type="search" data-testid="searchBookFormTitleInput"
               placeholder="Search your books" required />
-            <button id="searchSubmit" type="submit" data-testid="searchBookFormSubmitButton">
-              <i class="fa-solid fa-magnifying-glass"></i>
+            <button id="searchSubmit" type="submit" data-testid="searchBookFormSubmitButton" aria-label="Search books">
+              <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+              <span class="sr-only">Search</span>
             </button>
           </div>
           <button id="clearSearchButton" style="display: none;">Clear Search</button>
@@ -158,10 +159,14 @@
                 <label for="editBookFormIsComplete" class="editformText">Have you finished reading it?</label>
                 <input id="editBookFormIsComplete" type="checkbox" checked />
               </div>
-              <button id="EditBookFormButton" type="submit">
-                Save
+              <button id="EditBookFormButton" type="submit" aria-label="Save edited book">
+                <span class="visually-hidden">Save</span>
+                <i class="fa fa-save" aria-hidden="true"></i>
               </button>
-              <button id="cancelEditBookFormButton">Cancel</button>
+              <button id="cancelEditBookFormButton" aria-label="Cancel editing book">
+                <span class="visually-hidden">Cancel</span>
+                <i class="fa fa-ban" aria-hidden="true"></i>
+              </button>
             </div>
           </form>
         </div>
