@@ -1,38 +1,29 @@
 # Bookshelf App Starter Project
+Welcome to the Bookshelf App, a simple yet powerful tool to help you organize and manage your book collection. Whether it's tracking books you've already read or keeping an eye on the ones still waiting to be opened, this app is designed to make monitoring your reading progress easy and intuitive.
 
-Ini adalah starter project untuk siswa yang sedang mengerjakan tugas akhir kelas Belajar Membuat Front-End Web untuk Pemula.
+## 🚀 Features
 
-## Ketentuan Pengerjaan Tugas
+### Book Organization:  
+Easily categorize books as 'read' or 'unread' and monitor your progress.
+### Add and Edit Books: 
+Quickly add new books to your collection or edit existing details such as title, author, book cover and reading status.
+### User-Friendly Interface: 
+Designed with simplicity and ease-of-use in mind, ensuring a smooth experience while managing your personal library.
 
-Untuk mempermudah penilaian submission yang dikirim, Anda perlu memahami ketentuan-ketentuan berikut dalam mengerjakan tugas ini.
+## 📱 App Design
+![image](https://github.com/user-attachments/assets/74ef44a9-107b-424e-8855-96cde813d381)
 
-- Anda dilarang mengedit atau menghapus atribut `data-testid` pada elemen-elemen HTML.
-- Ini masih berkaitan dengan poin sebelumnya. Jika Anda memiliki kebutuhan seperti styling elemen dan perlu menambahkan atribut seperti class, itu tidak dilarang selama atribut `data-testid` beserta nilainya tidak diubah atau dihapus.
-- Dalam menampilkan data-data buku, Anda wajib memberikan beberapa atribut pada setiap elemennya.
+This design is inspired by the shape of the iOS 18 Control Centre, incorporating modern, minimalist elements to create a clean and intuitive user interface.
 
-  - `data-bookid`: menampung nilai ID masing-masing buku.
-  - `data-testid`: penanda jenis data buku yang ditampilkan. Berikut daftarnya.
-    - `bookItem`: elemen kontainer yang menampung data-data buku.
-    - `bookItemTitle`: judul buku
-    - `bookItemAuthor`: penulis buku
-    - `bookItemYear`: tahun rilis buku
-    - `bookItemIsCompleteButton`: tombol untuk mengubah kondisi buku dari “Belum selesai dibaca” menjadi “Selesai dibaca” atau sebaliknya.
-    - `bookItemDeleteButton`: tombol untuk menghapus buku.
-    - `bookItemEditButton`: tombol untuk mengubah data buku.
 
-  Agar pengerjaan tugas lebih mudah, Anda dapat mengikuti templat buku berikut.
+## 🛠️ How to Use
+### Add a New Book: 
+Use the form to add a new book to your list with details like title, author, and year.
+### Edit Book Information:
+Click on any book in your collection to edit its details or update its status.
+### Track Your Progress: 
+Easily see which books you’ve completed and which are still on your to-read list.
 
-```html
-<div data-bookid="{{ ID_buku }}" data-testid="bookItem">
-  <h3 data-testid="bookItemTitle">{{ judul_buku }}</h3>
-  <p data-testid="bookItemAuthor">Penulis: {{ penulis_buku }}</p>
-  <p data-testid="bookItemYear">Tahun: {{ tahun_rilis_buku }}</p>
-  <div>
-    <button data-testid="bookItemIsCompleteButton">{{ tombol_untuk_ubah_kondisi }}</button>
-    <button data-testid="bookItemDeleteButton">{{ tombol_untuk_hapus }}</button>
-    <button data-testid="bookItemEditButton">{{ tombol_untuk_edit }}</button>
-  </div>
-</div>
-```
+## 💜 Thanks!
 
-Selamat mengerjakan dan sukses selalu!
+Thanks to Dicoding for providing me with this course, which has greatly enriched my knowledge and skills in web development
